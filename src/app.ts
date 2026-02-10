@@ -2,19 +2,21 @@ import express, { Application, Request, Response } from "express";
 
 import { prisma } from "./app/lib/prisma";
 
-import {  IndexRoutes } from "./app/routes";
+import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
+import { notFound } from "./app/middleware/notFound";
+import { IndexRoutes } from "./app/routes";
 
 const app: Application = express();
 
-//* Enable URL-encoded form data parsing
+// Enable URL-encoded form data parsing
 app.use(express.urlencoded({ extended: true }));
 
-//* Middleware to parse JSON bodies
+// Middleware to parse JSON bodies
 app.use(express.json());
 
 app.use("/api/v1", IndexRoutes);
 
-//* Basic route
+// Basic route
 app.get("/", async (req: Request, res: Response) => {
   const specialty = await prisma.specialty.create({
     data: {
@@ -27,5 +29,11 @@ app.get("/", async (req: Request, res: Response) => {
     data: specialty,
   });
 });
+
+//! Global error handler
+app.use(globalErrorHandler);
+
+//! Not Found
+app.use(notFound);
 
 export default app;
