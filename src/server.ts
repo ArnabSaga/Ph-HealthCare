@@ -1,5 +1,5 @@
 import app from "./app";
-import { envVars } from './config/env';
+import { envVars } from "./app/config/env";
 
 const bootstrap = () => {
   try {

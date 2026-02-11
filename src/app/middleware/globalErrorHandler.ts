@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import status from "http-status";
 import * as z from "zod";
 
-import { envVars } from "../../config/env";
+import { envVars } from "../config/env";
 
 import AppError from "../errorHelpers/AppError";
 import { handleZodError } from "../errorHelpers/handleZodError";
@@ -26,7 +26,6 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
     message = simplifiedError.message;
     errorSources = [...simplifiedError.errorSources];
     stack = err.stack;
-
   } else if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;
@@ -35,9 +34,8 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
       {
         path: "",
         message: err.message,
-      }
+      },
     ];
-
   } else if (err instanceof Error) {
     statusCode = status.INTERNAL_SERVER_ERROR;
     message = err.message;
@@ -46,7 +44,7 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
       {
         path: "",
         message: err.message,
-      }
+      },
     ];
   }
 
