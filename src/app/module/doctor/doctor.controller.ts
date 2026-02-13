@@ -17,8 +17,6 @@ const getAllDoctors = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// TODO: Implement this
-
 const getDoctorById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 

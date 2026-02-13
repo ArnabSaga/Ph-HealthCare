@@ -22,8 +22,6 @@ const getAllDoctors = async () => {
   return doctors;
 };
 
-// TODO: Implement this
-
 const getDoctorById = async (id: string) => {
   const doctor = await prisma.doctor.findUnique({
     where: {
