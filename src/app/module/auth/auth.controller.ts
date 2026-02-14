@@ -70,7 +70,7 @@ const getMe = catchAsync(async (req: Request, res: Response) => {
 
 const getNewToken = catchAsync(async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
-  const betterAuthSessionToken = req.cookies.betterAuthSessionToken;
+  const betterAuthSessionToken = req.cookies["better-auth.session_token"];
 
   if (!refreshToken || !betterAuthSessionToken) {
     throw new AppError(status.UNAUTHORIZED, "Refresh token not found");
