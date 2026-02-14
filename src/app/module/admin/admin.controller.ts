@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import status from "http-status";
+import { IRequestUser } from "../../interfaces/request.interface";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import { AdminService } from "./admin.service";
@@ -45,7 +46,9 @@ const updateAdmin = catchAsync(async (req: Request, res: Response) => {
 const deleteAdmin = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const result = await AdminService.deleteAdmin(id as string);
+  const user = req.user;
+
+  const result = await AdminService.deleteAdmin(id as string, user as IRequestUser);
 
   sendResponse(res, {
     httpStatusCode: status.OK,
